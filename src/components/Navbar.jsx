@@ -4,6 +4,8 @@ import {
   Badge,
   Box,
   InputBase,
+  Menu,
+  MenuItem,
   styled,
   Toolbar,
   Typography,
@@ -12,6 +14,7 @@ import React from 'react';
 import Diversity2Icon from '@mui/icons-material/Diversity2';
 import { Mail, Notifications } from '@mui/icons-material';
 import AvatarImg from '../assets/avatar3.png';
+import { useState } from 'react';
 
 const StyledToolbar = styled(Toolbar)({
   display: 'flex',
@@ -44,6 +47,7 @@ const UserBox = styled(Box)(({ theme }) => ({
 }));
 
 const Navbar = () => {
+  const [open, setOpen] = useState(false);
   return (
     <AppBar position='sticky'>
       <StyledToolbar>
@@ -61,13 +65,35 @@ const Navbar = () => {
           <Badge badgeContent={4} color='error'>
             <Notifications />
           </Badge>
-          <Avatar sx={{ wight: 40, height: 40 }} src={AvatarImg} />
+          <Avatar
+            sx={{ wight: 40, height: 40 }}
+            src={AvatarImg}
+            onClick={(e) => setOpen(true)}
+          />
         </Icons>
-        <UserBox>
+        <UserBox onClick={(e) => setOpen(true)}>
           <Avatar sx={{ wight: 40, height: 40 }} src={AvatarImg} />
           <Typography variant='span'>Rick</Typography>
         </UserBox>
       </StyledToolbar>
+      <Menu
+        id='demo-positioned-menu'
+        aria-labelledby='demo-positioned-button'
+        open={open}
+        onClose={(e) => setOpen(false)}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'right',
+        }}
+      >
+        <MenuItem>Profile</MenuItem>
+        <MenuItem>My account</MenuItem>
+        <MenuItem>Logout</MenuItem>
+      </Menu>
     </AppBar>
   );
 };
